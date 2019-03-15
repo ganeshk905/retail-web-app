@@ -1,5 +1,4 @@
 # Forms for admin blueprint
-from ..constants import CONSTANTS
 from flask_wtf import FlaskForm
 from ..models import Department, Role
 from wtforms.validators import DataRequired
@@ -11,24 +10,24 @@ class DepartmentForm(FlaskForm):
     """
     Form for admin to add or edit a department
     """
-    name = StringField(CONSTANTS.NAME, validators=[DataRequired()])
-    description = StringField(CONSTANTS.DESCRIPTION, validators=[DataRequired()])
-    submit = SubmitField(CONSTANTS.SUBMIT)
+    name = StringField("Department", validators=[DataRequired()])
+    description = StringField("Description", validators=[DataRequired()])
+    submit = SubmitField("Submit")
 
 class RoleForm(FlaskForm):
     """
     Form for admin to add or edit a role
     """
-    name = StringField(CONSTANTS.NAME, validators=[DataRequired()])
-    description = StringField(CONSTANTS.DESCRIPTION, validators=[DataRequired()])
-    submit = SubmitField(CONSTANTS.SUBMIT)
+    name = StringField("Name", validators=[DataRequired()])
+    description = StringField("Description", validators=[DataRequired()])
+    submit = SubmitField("Submit")
 
 class EmployeeAssignForm(FlaskForm):
     """
     Form for admin to assign departments and roles to employees
     """
     department = QuerySelectField(query_factory=lambda: Department.query.all(),
-                                  get_label=CONSTANTS.NAME_LABEL)
+                                  get_label="id")
     role = QuerySelectField(query_factory=lambda: Role.query.all(),
-                            get_label=CONSTANTS.NAME_LABEL)
-    submit = SubmitField(CONSTANTS.SUBMIT)
+                            get_label="id")
+    submit = SubmitField("Submit")
