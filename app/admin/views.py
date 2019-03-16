@@ -3,7 +3,7 @@ from .. import db
 from . import admin
 from ..models import Department, Role, Employee
 from flask_login import current_user, login_required
-from forms import DepartmentForm, RoleForm, EmployeeAssignForm
+from .forms import DepartmentForm, RoleForm, EmployeeAssignForm
 from flask import abort, flash, redirect, render_template, url_for
 
 def check_admin():

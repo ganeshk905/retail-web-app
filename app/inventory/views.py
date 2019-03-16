@@ -1,7 +1,7 @@
 from .. import db
 from . import inventory
 from ..models import Inventory
-from forms import InventoryForm
+from .forms import InventoryForm
 from flask_login import current_user, login_required
 from flask import abort, render_template, redirect, url_for, flash
 

@@ -1,7 +1,7 @@
 from .. import db
 from . import customer
 from .. models import Customer
-from forms import CustomerForm
+from .forms import CustomerForm
 from flask_login import current_user, login_required
 from flask import abort, flash, redirect, render_template, url_for
 
