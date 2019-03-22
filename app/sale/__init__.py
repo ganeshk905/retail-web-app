@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-inventory = Blueprint('inventory', __name__)
+sale = Blueprint('sale', __name__)
 
 from . import views

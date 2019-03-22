@@ -51,14 +51,20 @@ def create_app(config_name):
     from .home import home as home_blueprint
     app.register_blueprint(home_blueprint)
 
-    from .inventory import inventory as inventory_blueprint
-    app.register_blueprint(inventory_blueprint)
+    from .stock import stock as stock_blueprint
+    app.register_blueprint(stock_blueprint)
 
     from .product import product as product_blueprint
     app.register_blueprint(product_blueprint)
 
     from .customer import customer as customer_blueprint
     app.register_blueprint(customer_blueprint)
+
+    from .sale import sale as sales_blueprint
+    app.register_blueprint(sales_blueprint)
+
+    from .expense import expense as expenses_blueprint
+    app.register_blueprint(expenses_blueprint)
 
     logger.info("[retaial-web-app] Error handlers")
     @app.errorhandler(403)

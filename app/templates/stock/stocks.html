@@ -1,6 +1,6 @@
 {% import "bootstrap/utils.html" as utils %}
 {% extends "base.html" %}
-{% block title %}Inventory{% endblock %}
+{% block title %}Stock{% endblock %}
 {% block body %}
 <div class="content-section">
   <div class="outer">
@@ -9,35 +9,33 @@
         <br/>
         {{ utils.flashed_messages() }}
         <br/>
-        <h1 style="text-align:center;">Inventory</h1>
-        {% if inventory %}
+        <h1 style="text-align:center;">Stock</h1>
+        {% if stocks %}
           <hr class="intro-divider">
           <div class="center">
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th width="12.5%"> ID </th>
-                  <th width="12.5%"> Name </th>
-                  <th width="12.5%"> Quantity </th>
-                  <th width="12.5%"> Expiry Date </th>
-                  <th width="12.5%"> Edit </th>
-                  <th width="12.5%"> Delete </th>
+                  <th width="17%"> Product ID </th>
+                  <th width="17%"> Quantity </th>
+                  <th width="17%"> Expiry Date </th>
+                  <th width="16%"> Edit </th>
+                  <th width="16%"> Delete </th>
                 </tr>
               </thead>
               <tbody>
-              {% for item in inventory %}
+              {% for item in stocks %}
                 <tr>
-                  <td> {{ item.productID }} </td>
-                  <td> {{ item.product }} </td>
+                  <td> {{ item.id }} </td>
                   <td> {{ item.quantity }} </td>
                   <td> {{ item.expiry_date }} </td>
                   <td>
-                    <a href="{{ url_for('inventory.edit_inventory', id=item.productID) }}">
+                    <a href="{{ url_for('stock.edit_stock', id=item.id) }}">
                       <i class="fa fa-pencil"></i> Edit
                     </a>
                   </td>
                   <td>
-                    <a href="{{ url_for('inventory.delete_inventory', id=item.productID) }}">
+                    <a href="{{ url_for('stock.delete_stock', id=item.id) }}">
                       <i class="fa fa-trash"></i> Delete
                     </a>
                   </td>
@@ -49,12 +47,12 @@
           <div style="text-align: center">
         {% else %}
           <div style="text-align: center">
-            <h3> No inventory item have been added. </h3>
+            <h3> No stock item have been added. </h3>
             <hr class="intro-divider">
         {% endif %}
-          <a href="{{ url_for('inventory.add_inventory') }}" class="btn btn-default btn-lg">
+          <a href="{{ url_for('stock.add_stock') }}" class="btn btn-default btn-lg">
             <i class="fa fa-plus"></i>
-            Add Inventory Item
+            Add Stock
           </a>
           </div>
         </div>

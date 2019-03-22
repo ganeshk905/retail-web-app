@@ -40,7 +40,7 @@ def add_product():
     if form.validate_on_submit():
         product = Product(name=form.name.data,
                           category=form.category.data,
-                          available_quantity=form.available_quantity.data,
+                          quantity=form.quantity.data,
                           buying_price=form.buying_price.data,
                           retailer_seling_price=form.retailer_seling_price.data,
                           home_delivery_selling_price=form.home_delivery_selling_price.data,
@@ -75,9 +75,9 @@ def edit_product(id):
     product = Product.query.get_or_404(id)
     form = ProductForm(obj=product)
     if form.validate_on_submit():
-        product.name = form.category.data
-        product.category = form.category.data
-        product.available_quantity = form.available_quantity.data
+        product.name = form.name.data
+        product.category = form.category.data.name
+        product.quantity = form.quantity.data.name
         product.buying_price = form.buying_price.data
         product.retailer_seling_price = form.retailer_seling_price.data
         product.home_delivery_selling_price = form.home_delivery_selling_price.data
@@ -89,8 +89,8 @@ def edit_product(id):
         return redirect(url_for('product.list_products'))
 
     form.name.data = product.name
-    form.category.data = product.category
-    form.available_quantity.data = product.available_quantity
+    form.category.data.name = product.category
+    form.quantity.data.name = product.quantity
     form.buying_price.data = product.buying_price
     form.retailer_seling_price.data = product.retailer_seling_price
     form.home_delivery_selling_price.data = product.home_delivery_selling_price

@@ -4,7 +4,7 @@ from flask_testing import TestCase
 from datetime import date
 from flask import abort, url_for
 from app import create_app, db
-from app.models import Department, Employee, Role, Inventory, Product, Customer
+from app.models import Department, Employee, Role, Stock, Product, Customer
 
 
 class TestBase(TestCase):
@@ -87,15 +87,15 @@ class TestModels(TestBase):
         Test number of records in Inventory table
         """
 
-        # create test inventory
-        inventory = Inventory(id=0, name="RCM",
-                              quantity=10, expiry_date=date(2002, 12, 31))
+        # create test stock
+        inventory = Stock(id=0, name="RCM",
+                          quantity=10, expiry_date=date(2002, 12, 31))
 
-        # save inventory to database
+        # save stock to database
         db.session.add(inventory)
         db.session.commit()
 
-        self.assertEqual(Inventory.query.count(), 1)
+        self.assertEqual(Stock.query.count(), 1)
 
     def test_product_model(self):
         """
@@ -242,10 +242,10 @@ class TestViews(TestBase):
 
     def test_inventory_view(self):
         """
-        Test that inventory page is inaccessible without login
-        and redirects to login page then to inventory page
+        Test that stock page is inaccessible without login
+        and redirects to login page then to stock page
         """
-        target_url = url_for('inventory.list_inventory')
+        target_url = url_for('stock.list_inventory')
         redirect_url = url_for('auth.login', next=target_url)
         response = self.client.get(target_url)
         self.assertEqual(response.status_code, 302)
