@@ -2,8 +2,7 @@ from .. import db
 from . import home
 from flask import abort, render_template, flash
 from flask_login import current_user, login_required
-from .. models import Sale, Expense, Stock, Balance
-from sqlalchemy.sql import text
+from .. models import Sale, Expense, Stock
 
 # add admin dashboard view
 @home.route('/admin/dashboard')
@@ -43,25 +42,6 @@ def manager_dashboard():
     """
     Render the dashboard template on the /dashboard route
     """
-    def getAttrs(label):
-        item = []
-        balance = 0.0
-
-        if label == "Sales":
-            items = db.session.query(Sale.amount).all()
-        elif label == "Expenses":
-            items = db.session.query(Expense.amount).all()
-        elif label == "Stock":
-            items = db.session.query(Stock.amount).all()
-
-        for i in items:
-            if i is float:
-                balance+=i
-            else:
-                balance += sum(i)
-
-        return balance
-
     balance = 0.0
     items = []
     try:
@@ -96,12 +76,8 @@ def manager_dashboard():
                 continue
             balance -= i[1]
 
-        db.session.query(Balance).delete()
-        db.session.commit()
     except Exception as e:
-        db.session.rollback()
-        flash(str(e))
-        flash("Something went wrong...")
+        flash("Something went wrong while updating dashboard, please contact your administrator")
 
     return render_template('home/manager_dashboard.html', title="Dashboard", items=items, balance=balance)
 
