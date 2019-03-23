@@ -1,4 +1,3 @@
-from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired
@@ -20,6 +19,6 @@ class CustomerForm(FlaskForm):
     frequency = QuerySelectField('Frequency',query_factory=lambda: DeliveryFrequency.query.all(),
                                   get_label="name", validators=[DataRequired()])
     start_subsc_date = DateField('Subscription Date',format='%Y-%m-%d', validators=[DataRequired()])
-    is_active = SelectField("Is Active",choices=status_list, validators=[DataRequired()])
+    is_active = SelectField("Is Active",coerce=bool, choices=status_list, validators=[DataRequired()])
     submit = SubmitField('Submit')
 

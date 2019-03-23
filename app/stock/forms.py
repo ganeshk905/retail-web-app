@@ -13,5 +13,6 @@ class StockForm(FlaskForm):
                                       get_label="id")
     quantity = IntegerField('Quantity', validators=[DataRequired()])
     expiry_date = DateField('Expiry Date', format='%Y-%m-%d', validators=[DataRequired()])
+    remark = StringField('Remark', validators=[DataRequired()])
     submit = SubmitField('Submit')
 

@@ -16,12 +16,13 @@
             <table class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th width="16.66%"> Sale ID </th>
-                  <th width="16.66%"> Product ID </th>
-                  <th width="16.66%"> Sale Category </th>
-                  <th width="16.66%"> Quantity </th>
-                  <th width="16.66%"> Edit </th>
-                  <th width="16.66%"> Delete </th>
+                  <th width="14.28%"> Sale ID </th>
+                  <th width="14.28%"> Product ID </th>
+                  <th width="14.28%"> Sale Category </th>
+                  <th width="14.28%"> Quantity </th>
+                  <th width="14.28%"> Remark </th>
+                  <th width="14.28%"> Edit </th>
+                  <th width="14.28%"> Delete </th>
                 </tr>
               </thead>
               <tbody>
@@ -31,6 +32,7 @@
                   <td> {{ sale.product_id }} </td>
                   <td> {{ sale.category }} </td>
                   <td> {{ sale.quantity }} </td>
+                  <td> {{ sale.remark }} </td>
                   <td>
                     <a href="{{ url_for('sale.edit_sale', id=sale.id) }}">
                       <i class="fa fa-pencil"></i> Edit 

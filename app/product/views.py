@@ -39,8 +39,8 @@ def add_product():
     form = ProductForm()
     if form.validate_on_submit():
         product = Product(name=form.name.data,
-                          category=form.category.data,
-                          quantity=form.quantity.data,
+                          category=form.category.data.name,
+                          quantity=form.quantity.data.name,
                           buying_price=form.buying_price.data,
                           retailer_seling_price=form.retailer_seling_price.data,
                           home_delivery_selling_price=form.home_delivery_selling_price.data,
@@ -49,7 +49,8 @@ def add_product():
             db.session.add(product)
             db.session.commit()
             flash('You have successfully added a new product.')
-        except:
+        except Exception as e:
+            flash(str(e))
             # in case product name already exists
             flash('Error: product name already exists.')
 

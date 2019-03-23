@@ -131,6 +131,7 @@ class Stock(Base):
     quantity = db.Column(db.Integer, index=True, unique=False)
     expiry_date = db.Column(db.Date, index=True)
     amount = db.Column(db.Float, index=True, unique=False)
+    remark = db.Column(db.String(200), index=True, unique=False)
 
     def __repr__(self):
         return '<Stock: {}>'.format(self.__tablename__)
@@ -146,6 +147,7 @@ class Sale(Base):
     category = db.Column(db.String(200), index=True, unique=False)
     quantity = db.Column(db.Integer, index=True, unique=False)
     amount = db.Column(db.Float, index=True, unique=False)
+    remark = db.Column(db.String(200), index=True, unique=False)
 
 class Expense(Base):
     """
@@ -206,4 +208,3 @@ class ExpenseCategory(Base):
 
     id = db.Column(db.Integer, default=counters.get_next_ec_id, primary_key=True)
     name = db.Column(db.String(80), index=True, unique=True)
-

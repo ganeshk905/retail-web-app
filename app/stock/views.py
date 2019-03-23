@@ -46,6 +46,7 @@ def add_stock():
         stock = Stock(product_id=form.product_id.data.id,
                       quantity=form.quantity.data,
                       expiry_date=form.expiry_date.data,
+                      remark=form.remark.data,
                       amount=getAmount(form.product_id.data.id,
                                        form.quantity.data))
         try:
@@ -80,6 +81,7 @@ def edit_stock(id):
         stock.product_id = form.product_id.data.id
         stock.quantity = form.quantity.data
         stock.exp_date = form.exp_date.data
+        stock.remark = form.remark.data
         stock.amount = getAmount(form.product_id.data.id,
                                  form.quantity.data)
         db.session.commit()
@@ -91,6 +93,7 @@ def edit_stock(id):
     form.product_id.data.id = stock.product_id
     form.quantity.data = stock.quantity
     form.exp_date.data = stock.exp_date
+    form.remark.data = stock.remark
 
     return render_template('stock/stock.html', action="Edit",
                            add_stock=add_stock, form=form,

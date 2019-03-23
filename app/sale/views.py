@@ -53,6 +53,7 @@ def add_sale():
             sale = Sale(product_id=form.product_id.data.id,
                         category=form.category.data.name,
                         quantity=form.quantity.data,
+                        remark=form.remark.data,
                         amount=getAmount(form.product_id.data.id,
                                          form.category.data.name,
                                          form.quantity.data))
@@ -89,6 +90,7 @@ def edit_sale(id):
         sale.product_id = form.product_id.data.id
         sale.category = form.category.data.name
         sale.quantity = form.quantity.data
+        sale.remark = form.remark.data
         sale.amount = getAmount(form.product_id.data.id,
                                 form.category.data.name,
                                 form.quantity.data)
@@ -101,6 +103,7 @@ def edit_sale(id):
     else:
         form.product_id.data.id = sale.product_id
         form.category.data.name = sale.category
+        form.remark.data = sale.remark
         form.quantity.data = sale.quantity
 
     return render_template('sale/sale.html', action="Edit",add_sale=add_sale,
