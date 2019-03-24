@@ -13,14 +13,10 @@ addons:
     - mysql-server
     - mysql-client
 before_install:
-  - mysql_upgrade -u root -p
-  - service mysqld restart
-  - mysql -u root -e "CREATE USER 'admin_test'@'localhost' IDENTIFIED BY 'tadmin';"
-  - mysql -u root -e "CREATE DATABASE myapp_test;"
-  - mysql -u root -e "GRANT ALL PRIVILEGES ON myapp_test . * TO 'admin_test'@'localhost';"
+  - mysql -u root --password="" < test/travis.sql
 install: pip install -r requirements.txt
 before_script:
-  - export SQLALCHEMY_DATABASE_URI='mysql+pymysql://admin_test:tadmin@localhost/myapp_test'
+  - export SQLALCHEMY_DATABASE_URI='mysql+pymysql://test:test@localhost/testdb'
   - export FLASK_CONFIG=testing
   - export FLASK_APP=run.py
 script: python tests.py
