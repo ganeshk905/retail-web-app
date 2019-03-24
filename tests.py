@@ -5,7 +5,7 @@ from datetime import date
 from flask import abort, url_for
 from app import create_app, db
 from app.models import Department, Employee, Role, Stock, Product, Customer
-
+import initdb
 
 class TestBase(TestCase):
 
@@ -15,7 +15,7 @@ class TestBase(TestCase):
         config_name = 'testing'
         app = create_app(config_name)
         app.config.update(
-            SQLALCHEMY_DATABASE_URI='<SQLALCHEMY_DATABASE_URI>'
+            SQLALCHEMY_DATABASE_URI='mysql+pymysql://admin_test:tadmin@localhost/myapp_test'
         )
         return app
 
@@ -23,19 +23,8 @@ class TestBase(TestCase):
         """
         Will be called before every test
         """
-
         db.create_all()
-
-        # create test admin user
-        admin = Employee(username="admin1", password="admin2019", is_admin=True)
-
-        # create test non-admin user
-        employee = Employee(username="test_user", password="test2019")
-
-        # save users to database
-        db.session.add(admin)
-        db.session.add(employee)
-        db.session.commit()
+        initdb.initialize()
 
     def tearDown(self):
         """
@@ -114,7 +103,7 @@ class TestModels(TestBase):
         db.session.add(product)
         db.session.commit()
 
-        self.assertEqual(Product.query.count(), 1)
+        self.assertEqual(Product.query.count(), 5)
 
     def test_customer_model(self):
         """
@@ -277,7 +266,6 @@ class TestErrorPages(TestBase):
         response = self.client.get('/500')
         self.assertEqual(response.status_code, 500)
         self.assertTrue("500 Error" in response.data)
-
 
 if __name__ == '__main__':
     unittest.main()

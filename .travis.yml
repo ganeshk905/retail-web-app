@@ -1,13 +1,22 @@
-sudo: false
+sudo: true
 language: python
 python:
   - 2.7
   - 3.7
+addons:
+  apt:
+   sources:
+    - mysql-5.7-trusty
+   packages:
+    - mysql-server
+    - mysql-client
+before_install:
+  - mysql -e 'CREATE USER 'admin_test'@'localhost' IDENTIFIED BY 'tadmin'';
+  - mysql -e 'CREATE DATABASE myapp_test;'
+  - mysql -e 'GRANT ALL PRIVILEGES ON myapp_test . * TO 'admin_test'@'localhost';'
 install: pip install -r requirements.txt
 before_script:
+  - export SQLALCHEMY_DATABASE_URI='mysql+pymysql://admin_test:tadmin@localhost/myapp_test'
   - export FLASK_CONFIG=testing
-  - export LOG_CFG=applog.yaml
   - export FLASK_APP=run.py
-
-
 script: python tests.py
