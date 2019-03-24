@@ -10,4 +10,4 @@ before_script:
   - export FLASK_APP=run.py
 
 
-script: flask test
+script: python tests.py
